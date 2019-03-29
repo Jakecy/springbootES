@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+        <!--定义全局变量-->
+<!--      <properties>
+            <property name="LOG_HOME">/data/logs/perfume</property>
+            <property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss,SSS} %-5level [%c{1.}] %C{1}  %m%n</property>
+        </properties>-->
+    <Appenders>
+        <!--配置向控制台的输出-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n" />
+        </Console>
+        <!--配置动态日志文件-->
+         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="serverError" fileName="/data/publish/server/serverError.log"
+                     filePattern="/data/publish/server/serverError_%d{yyyy-MM-dd}_%i.log">
+            <ThresholdFilter level="error" onMatch="ACCEPT"
+                             onMismatch="DENY" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %m%n" />
+            <!--配置日志文件的归档策略,这里配置为按大小归档，当日志文件超过100M时开始归档-->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--默认的覆盖策略-->
+            <!--DefaultRolloverStrategy-->
+            <DefaultRolloverStrategy max="9999" />
+        </RollingFile>
+        <Async name="serverErrorAsync" bufferSize="262144">
+            <AppenderRef ref="serverError" />
+        </Async>
+
+        <!--webSocket日志-->
+        <RollingFile name="webSocket" fileName="/data/logs/perfume/webSocketLog.log"
+                     filePattern="/data/logs/perfume/webSocketLog_%d{yyyy-MM-dd}_%i.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %m%n" />
+            <!--配置日志文件的归档策略,这里配置为按大小归档，当日志文件超过100M时开始归档-->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--默认的覆盖策略-->
+            <!--DefaultRolloverStrategy-->
+            <DefaultRolloverStrategy max="9999" />
+        </RollingFile>
+        <Async name="webSocketAsync" bufferSize="262144">
+            <AppenderRef ref="webSocket" />
+        </Async>
+
+        <!--订单log-->
+        <RollingFile name="orderLog" fileName="/data/logs/perfume/orderLog.log"
+                     filePattern="/data/logs/perfume/orderLog_%d{yyyy-MM-dd}_%i.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %m%n" />
+            <!--配置日志文件的归档策略,这里配置为按大小归档，当日志文件超过100M时开始归档-->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--默认的覆盖策略-->
+            <!--DefaultRolloverStrategy-->
+            <DefaultRolloverStrategy max="9999" />
+        </RollingFile>
+        <Async name="orderLogAsync" bufferSize="262144">
+            <AppenderRef ref="orderLog" />
+        </Async>
+
+        <!--支付log日志-->
+        <RollingFile name="paymentLog" fileName="/data/logs/perfume/paymentLog.log"
+                     filePattern="/data/logs/perfume/paymentLog_%d{yyyy-MM-dd}_%i.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %m%n" />
+            <!--配置日志文件的归档策略,这里配置为按大小归档，当日志文件超过100M时开始归档-->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--默认的覆盖策略-->
+            <!--DefaultRolloverStrategy-->
+            <DefaultRolloverStrategy max="9999" />
+        </RollingFile>
+        <Async name="paymentLogAsync" bufferSize="262144">
+            <AppenderRef ref="paymentLog" />
+        </Async>
+
+        <!--支付异常日志-->
+        <RollingFile name="paymentErrorLog" fileName="/data/publish/server/paymentErrorLog.log"
+                     filePattern="/data/publish/server/paymentErrorLog_%d{yyyy-MM-dd}_%i.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %m%n" />
+            <!--配置日志文件的归档策略,这里配置为按大小归档，当日志文件超过100M时开始归档-->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--默认的覆盖策略-->
+            <!--DefaultRolloverStrategy-->
+            <DefaultRolloverStrategy max="9999" />
+        </RollingFile>
+        <Async name="paymentErrorAsync" bufferSize="262144">
+            <AppenderRef ref="paymentErrorLog" />
+        </Async>
+
+        <!--点对点通知日志-->
+        <RollingFile name="p2pSendPayResultToAppclientLog" fileName="/data/logs/perfume/p2pSendPayResultToAppclientLog.log"
+                     filePattern="/data/logs/perfume/p2pSendPayResultToAppclientLog_%d{yyyy-MM-dd}_%i.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %m%n" />
+            <!--配置日志文件的归档策略,这里配置为按大小归档，当日志文件超过100M时开始归档-->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--默认的覆盖策略-->
+            <!--DefaultRolloverStrategy-->
+            <DefaultRolloverStrategy max="9999" />
+        </RollingFile>
+        <Async name="p2pSendPayResultToAppclientLogAsync" bufferSize="262144">
+            <AppenderRef ref="p2pSendPayResultToAppclientLog" />
+        </Async>
+
+         <!--支付宝撤销交易时的日志-->
+        <RollingFile name="aliPayTradeCancelLog" fileName="/data/logs/perfume/aliPayTradeCancelLog.log"
+                     filePattern="/data/logs/perfume/aliPayTradeCancelLog_%d{yyyy-MM-dd}_%i.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %m%n" />
+            <!--配置日志文件的归档策略,这里配置为按大小归档，当日志文件超过100M时开始归档-->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--默认的覆盖策略-->
+            <!--DefaultRolloverStrategy-->
+            <DefaultRolloverStrategy max="9999" />
+        </RollingFile>
+        <Async name="aliPayTradeCancelLogAsync" bufferSize="262144">
+            <AppenderRef ref="aliPayTradeCancelLog" />
+        </Async>
+    </Appenders>
+    <Loggers>
+<!--     <Root level="info">
+            <AppenderRef ref="RollingFile" />
+        </Root>-->
+        <Logger name="serverError" level="ERROR">
+            <AppenderRef ref="serverErrorAsync" />
+        </Logger>
+        <Logger name="webSocket" level="INFO">
+            <AppenderRef ref="webSocketAsync" />
+        </Logger>
+        <!--订单log-->
+        <Logger name="orderLog" level="INFO">
+            <AppenderRef ref="orderLogAsync"/>
+        </Logger>
+
+        <!--支付异常的log-->
+        <Logger name="paymentErrorLog" level="ERROR">
+            <AppenderRef ref="paymentErrorAsync"/>
+        </Logger>
+
+        <!--以点对点的方式把支付结果发送给app客户端的log-->
+        <Logger name="p2pSendPayResultToAppclientLog" level="INFO">
+            <AppenderRef ref="p2pSendPayResultToAppclientLogAsync"/>
+        </Logger>
+        <!--配置操作日志-->
+        <Logger name="aliPayTradeCancelLog" level="INFO">
+            <AppenderRef ref="aliPayTradeCancelLogAsync"/>
+        </Logger>
+    </Loggers>
+    <!--Logger对象是日志的操作对象，它用于将应用中的日志信息输出到某一类appender目的地中-->
+
+</Configuration>

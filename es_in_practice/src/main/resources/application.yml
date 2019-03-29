@@ -1,0 +1,58 @@
+spring: 
+  application: 
+    name: perfume-microservice
+##################### DB #####################
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://39.105.124.108:3306/perfume?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
+      username: devUser
+      password: MyDevPasswd123!
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT user()
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+#RabbitMQ 配置
+#AMQP RabbitMQ configuration
+ # rabbitmq:
+ #   host: 39.105.124.108
+  #  port: 5672
+  #  username: msgpush
+   # password: msgpush
+   # listener:
+   #   concurrency: 4
+    #  max-concurrency: 8
+    #  retry:
+    #    initial-interval: 5000
+
+##################### ES 配置#####################
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 192.168.6.24:9300
+      repositories:
+        enabled: true
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:com/dao/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.model  # 注意：对应实体类的路径
+  #日志配置
+logging:
+  config: classpath:log4j2.xml
+server:
+  port: 9090
+  ip: 39.105.124.108 #配置服务器ip
+
+
+
+
+
+  
